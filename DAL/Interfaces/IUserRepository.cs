@@ -10,7 +10,7 @@ namespace DAL.Interfaces
         void Add(UserDTO userDTO);
 
 
-        void delete(int id);
+        void Delete(int id);
 
         List<UserDTO> GetAll();
 

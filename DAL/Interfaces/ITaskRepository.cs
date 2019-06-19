@@ -10,7 +10,7 @@ namespace DAL.Interfaces
       void Add(TaskDTO taskDTO);
 
 
-      void delete(TaskDTO taskDTO);
+      void Delete(TaskDTO taskDTO);
 
 
        List<TaskDTO> GetAll();

@@ -13,6 +13,7 @@ namespace DAL.Repository
     {
         public DatabaseContext DatabaseContext { get; set; }
         public IDatabaseAutomapperConfiguration DatabaseAutomapperConfiguration { get; set; }
+
         public UserRepository(DatabaseContext databaseContext,IDatabaseAutomapperConfiguration databaseAutomapperConfiguration)
         {
             DatabaseContext = databaseContext;
@@ -21,7 +22,7 @@ namespace DAL.Repository
 
         public void Add(UserDTO userDTO)
         {
-            Domain.User user = DatabaseAutomapperConfiguration.UserDTOToUser(userDTO);
+            User user = DatabaseAutomapperConfiguration.UserDTOToUser(userDTO);
             user.CreatedOn = DateTime.Now;
             user.ModifiedOn = DateTime.Now;
 
@@ -31,11 +32,14 @@ namespace DAL.Repository
 
         }
 
-        public void delete(int id)
+        public void Delete(int id)
         {
 
-            Domain.User user = this.DatabaseContext.Users.Find(id);
-            
+            User user = this.DatabaseContext.Users.Find(id);
+            if(user==null)
+            {
+                return;
+            }
             DatabaseContext.Users.Remove(user);
             DatabaseContext.SaveChanges();
             return;
@@ -50,19 +54,23 @@ namespace DAL.Repository
         public UserDTO GetById(int id)
         {
             Domain.User user = this.DatabaseContext.Users.Find(id);
-            //Domain.User User =  this.DatabaseContext.Users
-            //.Include(t => t.User)
-            //.AsNoTracking()
-            //.FirstOrDefault(m => m.ID == id);
+            if(user==null)
+            {
+                return null;
+            }
             UserDTO userDTO = DatabaseAutomapperConfiguration.UserToUserDTO(user);
             return userDTO;
         }
 
-        public async void Update(UserDTO userDTO)
+        public void Update(UserDTO userDTO)
         {
+            User tempUser = DatabaseContext.Users.Single(u => u.Email == userDTO.Email);
+            userDTO.ID = tempUser.ID;
+            userDTO.CreatedOn = tempUser.CreatedOn;
+            userDTO.ModifiedOn = DateTime.Now;
             Domain.User user = DatabaseAutomapperConfiguration.UserDTOToUser(userDTO);
             DatabaseContext.Users.Update(user);
-            await DatabaseContext.SaveChangesAsync();
+            DatabaseContext.SaveChanges();
             return;
         }
     }

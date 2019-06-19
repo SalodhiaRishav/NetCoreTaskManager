@@ -33,7 +33,7 @@ namespace DAL.Repository
             
         }
 
-        public void delete(TaskDTO taskDTO)
+        public void Delete(TaskDTO taskDTO)
         {
             Domain.Task task = DatabaseAutomapperConfiguration.TaskDTOToTask(taskDTO);
             DatabaseContext.Tasks.Remove(task);

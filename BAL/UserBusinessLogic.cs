@@ -30,5 +30,16 @@ namespace BAL
         {
             return this.UserRepository.GetById(id);
         }
+
+        public void Delete(int id)
+        {
+            this.UserRepository.Delete(id);
+        }
+
+        public void Update(UserDTO userDTO)
+        {
+
+            this.UserRepository.Update(userDTO);
+        }
     }
 }

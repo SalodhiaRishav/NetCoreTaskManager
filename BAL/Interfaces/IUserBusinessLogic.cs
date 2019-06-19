@@ -9,9 +9,12 @@ namespace BAL.Interfaces
     {
         void Add(UserDTO userDTO);
 
-
         UserDTO GetById(int id);
 
         List<UserDTO> GetAll();
+
+        void Delete(int id);
+
+        void Update(UserDTO userDTO);
     }
 }
