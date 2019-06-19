@@ -33,9 +33,9 @@ namespace DAL.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TaskDomain = table.Column<string>(nullable: false),
-                    TimeSpent = table.Column<DateTime>(nullable: false),
+                    TimeSpent = table.Column<int>(nullable: false),
                     TaskDate = table.Column<DateTime>(nullable: false),
-                    ExpectedTime = table.Column<DateTime>(nullable: false),
+                    ExpectedTime = table.Column<int>(nullable: false),
                     UserStory = table.Column<string>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),

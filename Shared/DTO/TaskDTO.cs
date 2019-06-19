@@ -12,13 +12,13 @@ namespace Shared.DTO
         public string TaskDomain { get; set; }
 
 
-        public DateTime TimeSpent { get; set; }
+        public int TimeSpent { get; set; }
 
 
         public DateTime TaskDate { get; set; }
 
 
-        public DateTime ExpectedTime { get; set; }
+        public int ExpectedTime { get; set; }
 
 
         public string UserStory { get; set; }

@@ -7,11 +7,16 @@ namespace BAL.Interfaces
 {
    public interface ITaskBusinessLogic
     {
-       
+
         void Add(TaskDTO taskDTO);
 
-
         TaskDTO GetById(int id);
-       
+
+        List<TaskDTO> GetAll();
+
+        void Delete(int id);
+
+        void Update(TaskDTO taskDTO);
+
     }
 }

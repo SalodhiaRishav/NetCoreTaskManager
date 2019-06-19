@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20190619091358_InitalCreate")]
+    [Migration("20190619104645_InitalCreate")]
     partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("ExpectedTime");
+                    b.Property<int>("ExpectedTime");
 
                     b.Property<DateTime>("ModifiedOn");
 
@@ -38,7 +38,7 @@ namespace DAL.Migrations
                     b.Property<string>("TaskDomain")
                         .IsRequired();
 
-                    b.Property<DateTime>("TimeSpent");
+                    b.Property<int>("TimeSpent");
 
                     b.Property<int>("UserID");
 

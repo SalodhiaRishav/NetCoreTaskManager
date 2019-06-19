@@ -24,7 +24,7 @@ namespace UserTaskManger.Controllers
 
         // GET: api/User
         [HttpGet]
-        public List<UserDTO> Get()
+        public ActionResult<List<UserDTO>> Get()
         {
             return this.UserBusinessLogic.GetAll();
         }

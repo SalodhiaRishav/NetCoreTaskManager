@@ -23,22 +23,18 @@ namespace UserTaskManger.Controllers
         }
         // GET: api/Task
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<List<TaskDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.TaskBusinessLogic.GetAll();
         }
 
-        // GET: api/Task/5
-        //public HttpResponseMessage Get(int id)
-        //{
-        //    return Request.CreateResponse(HttpStatusCode.OK, this.TaskBusinessLogic.GetById(id));
+        [HttpGet("{id}")]
+        public ActionResult<TaskDTO> Get(int id)
+        {
+            return this.TaskBusinessLogic.GetById(id);
+        }
 
-        //}
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+       
 
         // POST: api/Task
         [HttpPost]
@@ -48,16 +44,17 @@ namespace UserTaskManger.Controllers
             return;
         }
 
-        // PUT: api/Task/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put(TaskDTO taskDTO)
         {
+            this.TaskBusinessLogic.Update(taskDTO);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            this.TaskBusinessLogic.Delete(id);
         }
     }
 }

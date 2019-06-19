@@ -27,7 +27,7 @@ namespace DAL.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime>("ExpectedTime");
+                    b.Property<int>("ExpectedTime");
 
                     b.Property<DateTime>("ModifiedOn");
 
@@ -36,7 +36,7 @@ namespace DAL.Migrations
                     b.Property<string>("TaskDomain")
                         .IsRequired();
 
-                    b.Property<DateTime>("TimeSpent");
+                    b.Property<int>("TimeSpent");
 
                     b.Property<int>("UserID");
 

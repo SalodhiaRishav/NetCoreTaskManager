@@ -14,13 +14,13 @@ namespace DAL.Domain
         public string TaskDomain { get; set; }
 
         [Required]
-        public DateTime TimeSpent { get; set; }
+        public int TimeSpent { get; set; }
 
         [Required]
         public DateTime TaskDate { get; set; }
 
         [Required]
-        public DateTime ExpectedTime { get; set; }
+        public int ExpectedTime { get; set; }
 
         [Required]
         public string UserStory { get; set; }

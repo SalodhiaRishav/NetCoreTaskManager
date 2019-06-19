@@ -5,8 +5,8 @@ using System.Text;
 using DAL.Database;
 using Shared.DTO;
 using DAL.Domain;
-using System.Threading.Tasks;
 using DAL.Interfaces;
+using System.Linq;
 
 namespace DAL.Repository
 {
@@ -33,28 +33,35 @@ namespace DAL.Repository
             
         }
 
-        public void Delete(TaskDTO taskDTO)
+        public void Delete(int id)
         {
-            Domain.Task task = DatabaseAutomapperConfiguration.TaskDTOToTask(taskDTO);
+            Domain.Task task = this.DatabaseContext.Tasks.Find(id);
+            if (task == null)
+            {
+                return;
+            }         
             DatabaseContext.Tasks.Remove(task);
             DatabaseContext.SaveChanges();
             return;
         }
 
-        //public List<TaskDTO> List()
-        //{
-
-        //}
 
         public TaskDTO GetById(int id)
         {
             Domain.Task task = this.DatabaseContext.Tasks.Find(id);
+            if(task==null)
+            {
+                return null;
+            }
             TaskDTO taskDTO = DatabaseAutomapperConfiguration.TaskToTaskDTO(task);
             return taskDTO;
         }
 
         public void Update(TaskDTO taskDTO)
         {
+          
+           
+            taskDTO.ModifiedOn = DateTime.Now;
             Domain.Task task = DatabaseAutomapperConfiguration.TaskDTOToTask(taskDTO);
             DatabaseContext.Tasks.Update(task);
             DatabaseContext.SaveChanges();
@@ -63,7 +70,8 @@ namespace DAL.Repository
 
         public List<TaskDTO> GetAll()
         {
-            throw new NotImplementedException();
+            List<Domain.Task> taskList = this.DatabaseContext.Tasks.ToList();
+            return this.DatabaseAutomapperConfiguration.TaskListToTaskDTOList(taskList);
         }
     }
 }
