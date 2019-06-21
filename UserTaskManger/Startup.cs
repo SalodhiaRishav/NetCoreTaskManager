@@ -17,6 +17,7 @@ using BAL;
 using BAL.Interfaces;
 using DAL.Repository;
 using DAL;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 
 namespace UserTaskManger
 {
@@ -32,6 +33,12 @@ namespace UserTaskManger
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials().Build());
+            });
             services.AddDbContext<DatabaseContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
             
@@ -40,7 +47,13 @@ namespace UserTaskManger
             services.AddTransient<ITaskBusinessLogic, TaskBusinessLogic>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserBusinessLogic, UserBusinessLogic>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("AllowMyOrigin"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +68,7 @@ namespace UserTaskManger
                 app.UseHsts();
             }
 
+            app.UseCors("AllowMyOrigin");
             app.UseHttpsRedirection();
             app.UseMvc();
         }

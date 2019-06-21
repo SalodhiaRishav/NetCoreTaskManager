@@ -6,6 +6,7 @@ using DAL.Database;
 using Shared.DTO;
 using DAL.Interfaces;
 using DAL.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repository
 {
@@ -68,8 +69,12 @@ namespace DAL.Repository
             userDTO.ID = tempUser.ID;
             userDTO.CreatedOn = tempUser.CreatedOn;
             userDTO.ModifiedOn = DateTime.Now;
+
             Domain.User user = DatabaseAutomapperConfiguration.UserDTOToUser(userDTO);
-            DatabaseContext.Users.Update(user);
+            DatabaseContext.Entry(user).State = EntityState.Detached;
+
+             //DatabaseContext.Entry(user).State = EntityState.Modified;
+             DatabaseContext.Users.Update(user);
             DatabaseContext.SaveChanges();
             return;
         }
