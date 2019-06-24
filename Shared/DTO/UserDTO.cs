@@ -28,6 +28,8 @@ namespace Shared.DTO
         
         public DateTime CreatedOn { get; set; }
 
+        public ICollection<TaskDTO> Tasks { get; set; }
+
 
     }
 }

@@ -54,8 +54,11 @@ namespace DAL.Repository
 
         public UserDTO GetById(int id)
         {
-            Domain.User user = this.DatabaseContext.Users.Find(id);
-            if(user==null)
+            Domain.User user = this.DatabaseContext.Users
+                .Include(u=>u.Tasks)
+                .Where(uu=>uu.ID==id).ToList().First();
+
+            if (user==null)
             {
                 return null;
             }
